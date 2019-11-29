@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8">
+        <title>List of Student</title>
+    </head>
+    <body>
+        <h1>8297 around the world * All Students Fall 2019 *</h1>
+        <br />
+        <p>(Please Click the headers to sort the table or Refresh the page.)   <a href = "/">Go back to home page</a></p>
+        <table id="studentList" style="width:100%" border= 1>
+             <thead>
+                 <td onclick="sortTable(0)"><strong>ID</strong></td>
+                 <td onclick="sortTable(1)"><strong>Student Name</strong></td>
+                 <td onclick="sortTable(2)"><strong>City</strong></td>
+                 <td onclick="sortTable(3)"><strong>Country</strong></td>
+            </thead>
+            {% for row in rows %}
+                 <tr>
+                    <td>{{row["id"]}}</td>
+                    <td><a href="#" onclick=window.open("{{row["Link"]}}")>{{row['Student']}}</a></td>
+                    <td> {{ row["City"]}}</td>
+                    <td>{{row['Country']}}</td>
+                 </tr>
+             {% endfor %}
+        </table>
+        <script>
+            function sortTable(n) {
+                var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+                table = document.getElementById("studentList");
+                switching = true;
+  // Set the sorting direction to ascending:
+                dir = "asc";
+  /* Make a loop that will continue until
+  no switching has been done: */
+                while (switching) {
+    // Start by saying: no switching is done:
+                     switching = false;
+                     rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+                     for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+                         shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+                         x = rows[i].getElementsByTagName("Td")[n];
+                         y = rows[i + 1].getElementsByTagName("Td")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+                         if (dir == "asc") {
+                              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+                                 shouldSwitch = true;
+                                 break;
+                              }
+                             } else if (dir == "desc") {
+                                 if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+                                    shouldSwitch = true;
+                                    break;
+                                 }
+                             }
+                     }
+                     if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+                             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                             switching = true;
+      // Each time a switch is done, increase this count by 1:
+                             switchcount ++;
+                     } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+                             if (switchcount == 0 && dir == "asc") {
+                             dir = "desc";
+                             switching = true;
+                             }
+                     }
+                }
+            }
+        </script>
+        <br />
+        <a href = "/">Go back to home page</a>
+   </body>
+</html>

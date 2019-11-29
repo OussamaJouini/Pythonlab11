@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+         <meta charset="UTF-8">
+         <title>Find Student</title>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+         <script type="text/javascript">
+              $( document ).ready(function() {
+                  $("#findstudent").change(function(){
+                  console.log(this.value);
+                  window.open(this.value);
+                  });
+              });
+         </script>
+    </head>
+    <body>
+      <h1>8297 Fall 2019   * Find Student *</h1>
+      <br />
+      <br />
+      <p>(Please use the dropbox below to select a specific student to display his / her city.)</p>
+      <select id="findstudent">
+         {% for row in rows %}
+            	<option value="{{row["Link"]}}">{{row['Student']}}</option>
+         {% endfor %}
+      </select>
+      <br />
+      <br />
+      <br />
+      <a href = "/">Go back to home page</a>
+   </body>
+</html>
+
+
